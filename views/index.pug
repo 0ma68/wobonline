@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= 'Willkommen zum Online Training von Work of balance'
+  hr
+  div#videos
+    each vidTitle, index in videoTitles
+      h3= vidTitle
+      video(
+        class= 'js-player'
+        controls
+        preload='none'
+        src= './videos/' + vidTitle + '.mp4'
+      )
+      hr
