@@ -29,13 +29,13 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var routes = require('./routes/index');
+var index = require('./routes/index');
 var login = require('./routes/login');
 var admin = require('./routes/admin');
 
 // Use Routes
-app.use('/', routes);
-app.use('/login', login);
+app.use('/', login);
+app.use('/index', index);
 app.use('/admin', admin);
 
 // view engine setup
@@ -46,7 +46,7 @@ app.post('/auth', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    console.log(req.body);
+    //console.log(req.body);
  
     if (username && password) {
         db.get('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(err, row) {
@@ -57,7 +57,7 @@ app.post('/auth', function (req, res) {
                 console.log('user ' + req.body.username + ' has logged in.');
                 res.cookie('loggedin', 'true');
                 res.cookie('username', username);
-                res.redirect('/admin');
+                res.redirect('/index');
             }
         });
  
